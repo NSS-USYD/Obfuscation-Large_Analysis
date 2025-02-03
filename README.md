@@ -19,7 +19,7 @@ This repository consists of four main sub-folders
 
 First, clone the git repo.
 ```
-git clone https://github.com/YasodGinige/TrafficGPT.git](https://github.com/NSS-USYD/Obfuscation-Large_Analysis.git
+git clone https://github.com/NSS-USYD/Obfuscation-Large_Analysis.git
 ```
 
 Before moving to run any of the modules need to create a virtual environment to make sure all the modules will run without any hassle
