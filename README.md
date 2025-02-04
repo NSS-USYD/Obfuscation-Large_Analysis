@@ -80,7 +80,7 @@ The dataset to Train and test is the D7 dataset
 
 validate.py inside will validate the created modules
 Change the 'WORKING_DIR', IR_MODEL_PATH, CF_MODLE_PATH and SE_MODEL_PATH according to your environment and saved best models inside validate.py
-Use D8 and D4 as validation datasets
+Use D8 and D9 as validation datasets
 
 # Improtant:
 
