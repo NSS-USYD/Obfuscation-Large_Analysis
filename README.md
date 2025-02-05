@@ -1,4 +1,4 @@
-is link to download the ## State of Obfuscation
+## State of Obfuscation
 
 <div align="center">
     <img src="/BD.png" width="900" height="400" alt="overall architecure"/>
@@ -6,8 +6,7 @@ is link to download the ## State of Obfuscation
 
 In this repository, we provide the source code for the Machine Learning models used in our research paper, along with their best models. We also include the script used for the large-scale analysis after combining the best models. Additionally, we provide basic steps for training and validating the models and details on the datasets used.
 
-**Ground-Truth Datasets:** [External Link to the Dataset](https://unsw-my.sharepoint.com/:f:/g/personal/z5429691_ad_unsw_edu_au/ErEx7ht7XZhGuS2frV16j5UBBJvHxZuIou1ARFu27SLHUw?e=qjysgZ)
-Use this link to download the D1-D9 datasets for training and validating models.
+**Ground-Truth Datasets:** [External Link to the Dataset](https://unsw-my.sharepoint.com/:f:/g/personal/z5429691_ad_unsw_edu_au/ErEx7ht7XZhGuS2frV16j5UBBJvHxZuIou1ARFu27SLHUw?e=qjysgZ) - Use this link to download the D1-D9 datasets for training and validating models.
 
 
 This repository consists of four main sub-folders
