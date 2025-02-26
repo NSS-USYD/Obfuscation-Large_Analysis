@@ -497,23 +497,10 @@ def perform_model_generation(model_name, rf_classifier, param_grid, cross_valida
     print(classification_report(testY, grid_predictions))
 
     # Train the best model using the best parameters on the entire dataset
-    best_model = RandomForestClassifier(**best_params)
-    best_model.fit(trainX, trainY)
-
+    best_model = grid_serach.best_estimator_
+    
     predictions = best_model.predict(testX)
     print(classification_report(testY, predictions))
-
-    con_mat = confusion_matrix(testY, predictions)
-    print(con_mat)
-    tp = con_mat[1][1]
-    tn = con_mat[0][0]
-    fp = con_mat[0][1]
-    fn = con_mat[1][0]
-    print("TP- {} | TN- {} | FP- {} | FN- {}".format(tp, tn, fp, fn))
-    precision = tp / (tp + fp)
-    recall = tp / (tp + fn)
-    f = (2 * precision * recall) / (precision + recall)
-    print("Precision : {} | Recall : {} | F1 {}".format(precision, recall, f))
 
     # Save the best model
     joblib.dump(best_model, WORKING_DIR + '/best_RF_Model_' + model_name + '-V1.pkl')
