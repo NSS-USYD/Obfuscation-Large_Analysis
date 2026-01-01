@@ -1,114 +1,179 @@
-## State of Obfuscation
+# State of Obfuscation: Machine Learning-Based Obfuscation Analysis
 
 <div align="center">
-    <img src="/BD.png" width="900" height="400" alt="overall architecure"/>
+    <img src="/BD.png" width="900" height="400" alt="overall architecture"/>
 </div>
 
-In this repository, we provide the source code for the Machine Learning models used in our research paper, along with their best models. We also include the script used for the large-scale analysis after combining the best models. Additionally, we provide basic steps for training and validating the models and details on the datasets used.
+This repository contains the source code and trained models used in our research on large-scale Android obfuscation analysis. It includes:
 
-**Ground-Truth Datasets:** [External Link to the Dataset](https://unsw-my.sharepoint.com/:f:/g/personal/z5429691_ad_unsw_edu_au/ErEx7ht7XZhGuS2frV16j5UBBJvHxZuIou1ARFu27SLHUw?e=RYUffn) - Use this link to download the D1-D9 datasets for training and validating models.
+- Machine Learning models and best-performing checkpoints  
+- Scripts for large-scale APK analysis and reporting  
+- Training and validation instructions  
+- Dataset information and usage guidelines  
 
+## 📁 Ground-Truth Datasets
 
-This repository consists of four main sub-folders
-- obfuscation: Obfuscation Detector
-- tool: Obfuscation Tool Detector
-- technique: Obfuscation Tech Detector
-- large-scale: Large Scale Investigator
+Download datasets **D1–D9** from the link below. These are used for model training, validation, and experiments.
 
-# Using the Source Codes
+👉 **[Download Dataset (D1–D9)](https://unsw-my.sharepoint.com/:f:/g/personal/z5429691_ad_unsw_edu_au/ErEx7ht7XZhGuS2frV16j5UBBJvHxZuIou1ARFu27SLHUw?e=RYUffn)**
 
-First, clone the git repo.
-```
-git clone https://github.com/NSS-USYD/Obfuscation-Large_Analysis.git
-```
+## 📂 Repository Structure
 
-Before moving to run any of the modules need to create a virtual environment to make sure all the modules will run without any hassle
-Before moving forward make sure you have the basic requirements: Python, and Pip installed
+| Folder | Description |
+|--------|--------------|
+| `obfuscation/` | Obfuscation Detector (Binary Classifier) |
+| `tool/` | Obfuscation Tool Detector (ProGuard, DashO, Allatori) |
+| `technique/` | Technique Detector (Identifier Renaming, Control Flow, String Encryption) |
+| `large_scale/` | Large-Scale APK Investigator |
+
+---
+
+# 🚀 Setup Instructions
+
+Clone the repository:
 
 ```sh
+git clone https://github.com/NSS-USYD/Obfuscation-Large_Analysis.git
 cd Obfuscation-Large_Analysis
+```
+
+Create & activate a virtual environment:
+
+```sh
 pip install virtualenv
-virtual env venv
+virtualenv venv
 source venv/bin/activate
 ```
-Within the virtual environment, need to install the required packages
+
+Install dependencies:
+
 ```sh
-pip install androguard == 3.3.5
+pip install androguard==3.3.5
 pip install torch torchvision torchaudio
-pip install joblib
-pip install networkx
-pip install matplotlib
-pip install tqdm
-pip install pandas
-pip install sklearn
-pip install xlsxwriter
-pip install openpyxl
+pip install joblib networkx matplotlib tqdm pandas sklearn xlsxwriter openpyxl
 ```
 
-## Obfuscation Detector
+---
+
+# 📌 Module Usage
+
+### 1️⃣ Obfuscation Detector
 ```sh
 cd obfuscation
 ```
-**Note:**
-Download the D1-D8 Datasets from the above Ground-Truth Dataset folder and save them in the data folder
+- Place datasets **D1–D4** in `data/`
+- Train a new model:
+```sh
+python train.py
+```
 
-train.py will train a new model and provide you with the results outputs based on a few hyperparameters. 
-For the training process, this module will use the D1 Dataset.
-
-For validation use D2, D3, D4 datasets
-
-## Obfuscation Tool Detector
+### 2️⃣ Tool Detector
 ```sh
 cd tool
 ```
-Similar to Obfuscation Detector train.py will tune the hyperparameters of the bank of classifiers (ProGuard vs. Other, DashO vs. Other, and Allatori vs. Other)
-Change the 'WORKING_DIR' according to your environment inside train.py
-For the training process, this module will use the D5 Dataset
-This module will create three distinct models after finding the best parameters for aforementioned three classifiers which we can use to further validate
+- Uses dataset **D5** for training and **D6** for validation  
+- Update paths in `train.py` and `validate.py`  
+- Trains 3 models: **ProGuard / DashO / Allatori**
 
-validate.py inside will validate the created modules
-Change the 'WORKING_DIR', PROGUARD_MODEL_PATH, DASHO_MODLE_PATH and ALLATORI_MODEL_PATH according to your environment and saved best models inside validate.py
-
-The validation set is D6.
-
-## Obfuscation Technique Detector
+### 3️⃣ Technique Detector
 ```sh
 cd technique
 ```
-The Training and validation for this classifier is as same as the Tool Detector. Change the WORKING_DIR and run the train.py module to create features and train the classifiers with hyperparameter tuning. This module will create three models to handle Obfuscation Technique detection (IR, CF, and SE)
-The dataset to Train and test is the D7 dataset
+- Uses **D7–D9** for training and testing  
+- Detects: IR / CF / SE  
+- Update paths in scripts before running
 
-validate.py inside will validate the created modules
-Change the 'WORKING_DIR', IR_MODEL_PATH, CF_MODLE_PATH and SE_MODEL_PATH according to your environment and saved best models inside validate.py
-Use D8 and D9 as validation datasets
-
-# Improtant:
-
-- We have provided with the Best Models which we created to use in our Large Scale Investigation. Anyone can use those Bestmodels and change the Model Names accordingly in validate.py and validate with your own APK dataset.
-
-
-## Large Scale Investigation
+### 4️⃣ 🔎 Large Scale Investigation
 ```sh
 cd large_scale
 ```
--Best models are in BestModels Folder
+Configure model names & paths in `analyser.py`:
 
-analyser.py was designed to conduct a large-scale investigation of APKs downloaded from the Google Play Store.
-
-We have kept a record of our APK Files as a .csv (we have provided an example csv - change it according to your dataset) and we read through csv file and create the APK file path for each and every APK.
-
-Before running analyser.py please change the below congifs inside analyser.py accordingly.
-In addition, add APK paths inside the example_apk_file.csv file
 ```sh
-WORKING_DIR = "Add your working directory"
-OBFUSCATION_MODEL_NAME = "Obfuscation Detector Model Name"
-PROGUARD_MODEL_NAME = "ProGuard Model Name"
-DASHO_MODEL_NAME = "DashO Model Name"
-ALLATORI_MODEL_NAME = "Allatori Model Name"
-IR_MODEL_NAME = "IR Model Name"
-CF_MODEL_NAME = "CF Model Name"
-SE_MODEL_NAME = "SE Model Name
+WORKING_DIR = "path"
+OBFUSCATION_MODEL_NAME = "model_name"
+PROGUARD_MODEL_NAME = "model_name"
+DASHO_MODEL_NAME = "model_name"
+ALLATORI_MODEL_NAME = "model_name"
+IR_MODEL_NAME = "model_name"
+CF_MODEL_NAME = "model_name"
+SE_MODEL_NAME = "model_name"
 APK_FILE = "example_apk_file.csv"
-server_path = 'Create your APK path'
+server_path = "apk_directory"
 ```
-All the available APKs will be analysed and the final report will be created which can be used to extract the analysis results.
+
+Run large-scale analysis:
+
+```sh
+python analyser.py
+```
+
+---
+
+# 🧠 Model Hyperparameters
+
+## MLP – Obfuscation Detection
+| Hyperparameter | Values Explored |
+|----------------|------------------|
+| Input dimension | 37 |
+| Hidden dimension | 16, 32, 64, 128 |
+| Output dimension | 1 |
+| Learning rate | 1e-6 → 5e-2 (log scale) |
+| Epochs | 1000 → 5000 |
+| Loss | BCEWithLogitsLoss |
+| Optimizer | Adam |
+
+**Best Model Selected:**  
+Hidden **32**, LR **1e-3**, **5000 epochs**, **3-fold CV on D1**.
+
+---
+
+## Random Forest – Tool & Technique Detection
+| Hyperparameter | Values Explored |
+|----------------|------------------|
+| n_estimators | 10–100 |
+| max_depth | None, 2, 5, 10, 20, 30 |
+| min_samples_split | 2–8 |
+| min_samples_leaf | 1, 2, 4, 8, 16 |
+| max_features | sqrt, log2 |
+| bootstrap | True, False |
+| criterion | gini, entropy |
+| class_weight | None, balanced |
+| random_state | 42 |
+
+### 📌 Best Configuration per Classifier
+| Classifier | n_estimators | max_depth | split | leaf | features | bootstrap | criterion | class_weight |
+|------------|--------------|-----------|--------|-------|----------|------------|------------|---------------|
+| Allatori | 30 | None | 3 | 1 | sqrt | True | gini | None |
+| DashO | 10 | None | 2 | 1 | sqrt | True | gini | None |
+| ProGuard | 30 | None | 2 | 1 | log2 | True | entropy | None |
+| CF | 40 | 5 | 2 | 2 | log2 | True | entropy | None |
+| IR | 20 | 2 | 2 | 4 | sqrt | False | gini | None |
+| SE | 20 | None | 2 | 8 | log2 | True | gini | balanced |
+
+---
+
+# 📄 Citation
+
+If you use our code or datasets, please cite our paper (to be added once published).
+
+---
+
+# 🤝 Acknowledgements
+
+This project is developed as part of ongoing research at **The University of Sydney**.
+
+---
+
+# 📬 Contact
+
+For issues or collaborations:
+
+📧 akila.niroshan@sydney.edu.au  
+🔍 AI-enhanced Android Obfuscation & Security  
+
+---
+
+# ⭐️ Support
+
+If you find this useful, please **star the repository** ⭐
