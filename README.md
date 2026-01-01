@@ -110,7 +110,7 @@ python analyser.py
 
 ---
 
-# 🧠 Model Hyperparameters
+# Model Hyperparameters
 
 ## MLP – Obfuscation Detection
 | Hyperparameter | Values Explored |
@@ -141,7 +141,7 @@ Hidden **32**, LR **1e-3**, **5000 epochs**, **3-fold CV on D1**.
 | class_weight | None, balanced |
 | random_state | 42 |
 
-### 📌 Best Configuration per Classifier
+### Best Configuration per Classifier
 | Classifier | n_estimators | max_depth | split | leaf | features | bootstrap | criterion | class_weight |
 |------------|--------------|-----------|--------|-------|----------|------------|------------|---------------|
 | Allatori | 30 | None | 3 | 1 | sqrt | True | gini | None |
@@ -161,7 +161,7 @@ If you use our code or datasets, please cite our paper (to be added once publish
 
 # 🤝 Acknowledgements
 
-This project is developed as part of ongoing research at **The University of Sydney**.
+This project is developed as part of ongoing research at **The University of New South Wales**.
 
 ---
 
@@ -169,8 +169,7 @@ This project is developed as part of ongoing research at **The University of Syd
 
 For issues or collaborations:
 
-📧 akila.niroshan@sydney.edu.au  
-🔍 AI-enhanced Android Obfuscation & Security  
+📧 a.pothpitiyage_don@unsw.edu.au  
 
 ---
 
