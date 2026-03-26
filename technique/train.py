@@ -497,7 +497,7 @@ def perform_model_generation(model_name, rf_classifier, param_grid, cross_valida
     print(classification_report(testY, grid_predictions))
 
     # Train the best model using the best parameters on the entire dataset
-    best_model = grid_serach.best_estimator_
+    best_model = grid_search.best_estimator_
     
     predictions = best_model.predict(testX)
     print(classification_report(testY, predictions))
