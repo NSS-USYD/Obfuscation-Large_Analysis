@@ -67,8 +67,8 @@ cd obfuscation
 ```
 - Place datasets **D1–D4** separately in the `data/` directory
 - Ensure the folder structure is as follows
-- data/D1, data/D2, data/D3, data/D4
-  
+    data/D1, data/D2, data/D3, data/D4
+- In `train.py`, make sure you use data/D1 as the train set. You can evaluate the model using D2, D3, and D4 datasets
 - To train a new model, run:
 
 ```sh
