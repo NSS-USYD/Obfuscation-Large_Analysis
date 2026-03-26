@@ -48,9 +48,13 @@ source venv/bin/activate
 Install dependencies:
 
 ```sh
+pip install --upgrade pip
+
 pip install androguard==3.3.5
 pip install torch torchvision torchaudio
-pip install joblib networkx matplotlib tqdm pandas sklearn xlsxwriter openpyxl
+pip install joblib networkx matplotlib tqdm pandas xlsxwriter openpyxl
+pip install scikit-learn
+pip install seaborn scipy
 ```
 
 ---
@@ -61,8 +65,12 @@ pip install joblib networkx matplotlib tqdm pandas sklearn xlsxwriter openpyxl
 ```sh
 cd obfuscation
 ```
-- Place datasets **D1–D4** in `data/`
-- Train a new model:
+- Place datasets **D1–D4** separately in the `data/` directory
+- Ensure the folder structure is as follows
+- data/D1, data/D2, data/D3, data/D4
+  
+- To train a new model, run:
+
 ```sh
 python train.py
 ```
@@ -72,16 +80,21 @@ python train.py
 cd tool
 ```
 - Uses dataset **D5** for training and **D6** for validation  
-- Update paths in `train.py` and `validate.py`  
+- Update paths in `train.py` and `validate.py` :
+      In train.py, need to update 'APK_PATH' and 'WORKING_DIR' in main and provide the path of the D5 dataset as the train set
+      In validate.py, need to update 'APK_PATH' and 'WORKING_DIR' in main and provide the path of D6 as the validation set
 - Trains 3 models: **ProGuard / DashO / Allatori**
 
 ### 3️⃣ Technique Detector
 ```sh
 cd technique
 ```
-- Uses **D7–D9** for training and testing  
+- Uses **D7–D9** for training and testing
+- Update paths in `train.py` and `validate.py`:
+      Similar to tools, we need to change the parameters ('APK_PATH' and 'WORKING_DIR') in the main and D7 should be used as the train set in `train.py`
+      D8 and D9 are used as validation sets in `validation.py`
 - Detects: IR / CF / SE  
-- Update paths in scripts before running
+
 
 ### 4️⃣ 🔎 Large Scale Investigation
 ```sh
